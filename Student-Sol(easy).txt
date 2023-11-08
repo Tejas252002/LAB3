@@ -1,0 +1,28 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract StudentData {
+    // Define the structure for a student
+    struct Student {
+        uint256 studentId;
+        string name;
+        uint256 age;
+    }
+
+    // Declare an array to store student records
+    Student[] public students;
+
+    // Event to log student creation
+    event StudentCreated(uint256 studentId, string name, uint256 age);
+
+    // Function to create a new student record
+    function createStudent(uint256 _studentId, string memory _name, uint256 _age) public {
+        students.push(Student(_studentId, _name, _age));
+        emit StudentCreated(_studentId, _name, _age);
+    }
+
+    // Fallback function to reject incoming ether transfers
+    fallback() external {
+        revert("This contract does not accept Ether transfers.");
+    }
+}
